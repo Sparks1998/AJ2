@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 025-seed-level-definition
+      author: Abbass Charara
+      changes:
+        - insert:
+            tableName: level_definition
+            columns:
+              - column:
+                  name: level
+                  valueNumeric: 1
+              - column:
+                  name: xp_required
+                  valueNumeric: 0
+              - column:
+                  name: title
+                  value: Le Découvreur
+        - insert:
+            tableName: level_definition
+            columns:
+              - column:
+                  name: level
+                  valueNumeric: 2
+              - column:
+                  name: xp_required
+                  valueNumeric: 2000
+              - column:
+                  name: title
+                  value: Le Chercheur
+      rollback:
+        - delete:
+            tableName: level_definition

@@ -24,41 +24,53 @@ databaseChangeLog:
       file: db/changelog/changes/008-enum-device-platform.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/009-table-users.yaml
+      file: db/changelog/changes/009-enum-user-gender.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/010-table-mission-template.yaml
+      file: db/changelog/changes/010-table-users.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/011-table-mission-completion.yaml
+      file: db/changelog/changes/011-table-mission-templates.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/012-table-document-type.yaml
+      file: db/changelog/changes/012-table-mission-completions.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/013-table-document-request.yaml
+      file: db/changelog/changes/013-table-document-types.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/014-table-document-submission.yaml
+      file: db/changelog/changes/014-table-document-requests.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/015-table-reward.yaml
+      file: db/changelog/changes/015-table-document-submissions.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/016-table-reward-redemption.yaml
+      file: db/changelog/changes/016-table-rewards.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/017-table-job-application.yaml
+      file: db/changelog/changes/017-table-reward-redemptions.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/018-table-workshop.yaml
+      file: db/changelog/changes/018-table-job-applications.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/019-table-workshop-registration.yaml
+      file: db/changelog/changes/019-table-workshops.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/020-table-device-token.yaml
+      file: db/changelog/changes/020-table-workshop-registrations.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/021-table-notification.yaml
+      file: db/changelog/changes/021-table-device-tokens.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/022-table-notifications.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/023-table-auth-tokens.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/024-table-level-definition.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/025-seed-level-definition.yaml
       relativeToChangelogFile: false

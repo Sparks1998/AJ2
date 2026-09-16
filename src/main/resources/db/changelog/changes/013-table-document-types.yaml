@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 013-table-document-types
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: document_types
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: label
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: document_types

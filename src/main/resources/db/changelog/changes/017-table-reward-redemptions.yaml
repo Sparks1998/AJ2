@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: 017-table-reward-redemptions
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: reward_redemptions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reward_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: xp_spent
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: redemption_status
+                  constraints:
+                    nullable: false
+              - column:
+                  name: redeemed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: reward_redemptions
+            baseColumnNames: user_id
+            constraintName: fk_reward_redemptions_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: reward_redemptions
+            baseColumnNames: reward_id
+            constraintName: fk_reward_redemptions_reward
+            referencedTableName: rewards
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_reward_redemptions_user_id
+            tableName: reward_redemptions
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            indexName: idx_reward_redemptions_reward_id
+            tableName: reward_redemptions
+            columns:
+              - column:
+                  name: reward_id
+      rollback:
+        - dropTable:
+            tableName: reward_redemptions

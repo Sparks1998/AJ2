@@ -1,0 +1,142 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-table-document-submissions
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: document_request_id
+                  type: UUID
+              - column:
+                  name: document_mission_id
+                  type: UUID
+              - column:
+                  name: document_type_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted_by
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_key
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file_name
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mime_type
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: size_bytes
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: version
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: submitted_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reviewed_by
+                  type: UUID
+              - column:
+                  name: reviewed_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: review_comment
+                  type: TEXT
+              - column:
+                  name: decision
+                  type: document_status
+        - addForeignKeyConstraint:
+            baseTableName: document_submissions
+            baseColumnNames: document_request_id
+            constraintName: fk_document_submissions_document_request
+            referencedTableName: document_requests
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: document_submissions
+            baseColumnNames: document_mission_id
+            constraintName: fk_document_submissions_document_mission
+            referencedTableName: mission_templates
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: document_submissions
+            baseColumnNames: reviewed_by
+            constraintName: fk_document_submissions_reviewed_by
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: document_submissions
+            baseColumnNames: document_type_id
+            constraintName: fk_document_submissions_document_type
+            referencedTableName: document_types
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: document_submissions
+            baseColumnNames: submitted_by
+            constraintName: fk_document_submissions_submitted_by
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_document_submissions_document_request_id
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: document_request_id
+        - createIndex:
+            indexName: idx_document_submissions_document_mission_id
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: document_mission_id
+        - createIndex:
+            indexName: idx_document_submissions_reviewed_by
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: reviewed_by
+        - createIndex:
+            indexName: idx_document_submissions_document_type_id
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: document_type_id
+        - createIndex:
+            indexName: idx_document_submissions_submitted_by
+            tableName: document_submissions
+            columns:
+              - column:
+                  name: submitted_by
+      rollback:
+        - dropTable:
+            tableName: document_submissions

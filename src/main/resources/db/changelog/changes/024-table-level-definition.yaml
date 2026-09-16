@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 024-table-level-definition
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: level_definition
+            columns:
+              - column:
+                  name: level
+                  type: INT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: xp_required
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: level_definition

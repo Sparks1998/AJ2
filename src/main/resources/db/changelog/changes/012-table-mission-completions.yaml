@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012-table-mission-completions
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: mission_completions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mission_template_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: xp_awarded
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: synced_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: mission_completions
+            baseColumnNames: user_id
+            constraintName: fk_mission_completions_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: mission_completions
+            baseColumnNames: mission_template_id
+            constraintName: fk_mission_completions_mission_template
+            referencedTableName: mission_templates
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_mission_completions_user_id
+            tableName: mission_completions
+            columns:
+              - column:
+                  name: user_id
+        - createIndex:
+            indexName: idx_mission_completions_mission_template_id
+            tableName: mission_completions
+            columns:
+              - column:
+                  name: mission_template_id
+      rollback:
+        - dropTable:
+            tableName: mission_completions

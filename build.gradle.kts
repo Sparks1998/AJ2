@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.kotlinSpring)
+    alias(libs.plugins.kotlinJpa)
     alias(libs.plugins.kotlinKapt)
     alias(libs.plugins.springBoot)
     alias(libs.plugins.springDependencyManagement)
@@ -36,6 +37,7 @@ dependencies {
     // Security
     implementation(libs.spring.security.oauth2.resource.server)
     implementation(libs.spring.security.oauth2.jose)
+    implementation(libs.spring.security.oauth2.authorization.server)
 
     // Database / migrations
     runtimeOnly(libs.postgresql)

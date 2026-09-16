@@ -3,7 +3,7 @@ kotlin = "2.3.21"
 javaTarget = "25"
 springBoot = "4.1.1"
 springDependencyManagement = "1.1.7"
-springSecurity = "7.0.0"
+springSecurity = "7.1.1"
 postgres = "42.7.8"
 liquibase = "4.33.0"
 mapstruct = "1.6.3"
@@ -17,6 +17,7 @@ springDependencyManagement = { id = "io.spring.dependency-management", version.r
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSpring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlinJpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [libraries]
@@ -33,6 +34,7 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 # Spring Security
 spring-security-oauth2-resource-server = { module = "org.springframework.security:spring-security-oauth2-resource-server", version.ref = "springSecurity" }
 spring-security-oauth2-jose = { module = "org.springframework.security:spring-security-oauth2-jose", version.ref = "springSecurity" }
+spring-security-oauth2-authorization-server = { module = "org.springframework.security:spring-security-oauth2-authorization-server", version.ref = "springSecurity" }
 
 # Database
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
