@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 021-table-notification
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: notification
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: body
+                  type: TEXT
+              - column:
+                  name: payload
+                  type: JSONB
+              - column:
+                  name: read_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: notification
+            baseColumnNames: user_id
+            constraintName: fk_notification_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_notification_user_id
+            tableName: notification
+            columns:
+              - column:
+                  name: user_id
+      rollback:
+        - dropTable:
+            tableName: notification

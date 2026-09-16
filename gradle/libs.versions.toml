@@ -6,7 +6,6 @@ springDependencyManagement = "1.1.7"
 springSecurity = "7.0.0"
 postgres = "42.7.8"
 liquibase = "4.33.0"
-lombok = "1.18.42"
 mapstruct = "1.6.3"
 swagger = "2.2.30"
 jacksonKotlin = "2.20.1"
@@ -42,7 +41,6 @@ spring-boot-starter-liquibase = { module = "org.springframework.boot:spring-boot
 h2database = { module = "com.h2database:h2" }
 
 # Code Generation
-lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct" }
 mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct" }
 

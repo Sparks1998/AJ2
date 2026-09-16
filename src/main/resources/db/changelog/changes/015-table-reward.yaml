@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 015-table-reward
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: reward
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: xp_cost
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: stock
+                  type: INT
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: reward

@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 020-table-device-token
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: device_token
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fcm_token
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: platform
+                  type: device_platform
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_used_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: device_token
+            baseColumnNames: user_id
+            constraintName: fk_device_token_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_device_token_user_id
+            tableName: device_token
+            columns:
+              - column:
+                  name: user_id
+      rollback:
+        - dropTable:
+            tableName: device_token

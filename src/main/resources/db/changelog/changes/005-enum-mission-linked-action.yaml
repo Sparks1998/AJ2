@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-enum-mission-linked-action
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE mission_linked_action AS ENUM ('NONE', 'JOB_APPLY', 'WORKSHOP_ATTENDED', 'DOCUMENT');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS mission_linked_action;

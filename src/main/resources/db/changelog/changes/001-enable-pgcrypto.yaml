@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-enable-pgcrypto
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS pgcrypto;
+      rollback:
+        - sql:
+            sql: DROP EXTENSION IF EXISTS pgcrypto;

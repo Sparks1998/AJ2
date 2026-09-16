@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-enum-mission-period-type
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE mission_period_type AS ENUM ('DAILY', 'WEEKLY', 'MONTHLY');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS mission_period_type;

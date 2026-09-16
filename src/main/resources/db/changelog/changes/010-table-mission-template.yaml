@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 010-table-mission-template
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: mission_template
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: xp_reward
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period_type
+                  type: mission_period_type
+                  constraints:
+                    nullable: false
+              - column:
+                  name: completion_type
+                  type: mission_completion_type
+                  constraints:
+                    nullable: false
+              - column:
+                  name: linked_action
+                  type: mission_linked_action
+              - column:
+                  name: target_count
+                  type: INT
+              - column:
+                  name: active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+      rollback:
+        - dropTable:
+            tableName: mission_template

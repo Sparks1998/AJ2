@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-enum-device-platform
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE device_platform AS ENUM ('ANDROID', 'IOS');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS device_platform;

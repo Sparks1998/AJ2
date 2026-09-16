@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-enum-document-status
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE document_status AS ENUM ('REQUESTED', 'SUBMITTED', 'APPROVED', 'REJECTED', 'NEEDS_REVISION');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS document_status;

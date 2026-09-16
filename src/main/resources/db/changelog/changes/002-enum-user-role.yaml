@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-enum-user-role
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE user_role AS ENUM ('CLIENT', 'ADMIN', 'COACH');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS user_role;

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-enum-mission-completion-type
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE mission_completion_type AS ENUM ('MANUAL', 'COUNTER');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS mission_completion_type;

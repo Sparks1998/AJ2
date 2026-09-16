@@ -1,25 +1,64 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1000000000000-1
-      author: Abbass Charara
-      changes:
-        - sql:
-            dbms: postgresql
-            splitStatements: true
-            stripComments: true
-            sql: |
-              CREATE SCHEMA IF NOT EXISTS "aj2";
-
-  - changeSet:
-      id: 1000000000000-1a
-      author: Abbass Charara
-      changes:
-        - sql:
-            dbms: postgresql
-            splitStatements: true
-            stripComments: true
-            sql: |
-              CREATE EXTENSION IF NOT EXISTS pgcrypto;
-
-  - includeAll:
-      path: db/changelog/changes
+  - include:
+      file: db/changelog/changes/001-enable-pgcrypto.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/002-enum-user-role.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/003-enum-mission-period-type.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/004-enum-mission-completion-type.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/005-enum-mission-linked-action.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/006-enum-document-status.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/007-enum-redemption-status.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/008-enum-device-platform.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/009-table-users.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/010-table-mission-template.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/011-table-mission-completion.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/012-table-document-type.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/013-table-document-request.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/014-table-document-submission.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/015-table-reward.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/016-table-reward-redemption.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/017-table-job-application.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/018-table-workshop.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/019-table-workshop-registration.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/020-table-device-token.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/021-table-notification.yaml
+      relativeToChangelogFile: false

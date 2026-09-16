@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -42,10 +43,6 @@ dependencies {
     implementation(libs.spring.boot.starter.liquibase)
     testRuntimeOnly(libs.h2database)
 
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
-
     // MapStruct
     implementation(libs.mapstruct)
     kapt(libs.mapstruct.processor)
@@ -62,11 +59,13 @@ dependencies {
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly(libs.junit.platform.launcher)
+    testImplementation(kotlin("test"))
 }
 
 kotlin {
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+        freeCompilerArgs.addAll("-Xjsr305=strict" , "-Xannotation-default-target=param-property")
+        jvmTarget = JvmTarget.JVM_25
     }
     jvmToolchain(25)
 }
@@ -75,6 +74,10 @@ tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
     }
+}
+
+tasks.withType<JavaCompile> {
+    targetCompatibility = "25"
 }
 
 tasks.withType<Test> {

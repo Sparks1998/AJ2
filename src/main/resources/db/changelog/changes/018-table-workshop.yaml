@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 018-table-workshop
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: workshop
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: location
+                  type: VARCHAR
+              - column:
+                  name: starts_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ends_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_by
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: workshop
+            baseColumnNames: created_by
+            constraintName: fk_workshop_created_by
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_workshop_created_by
+            tableName: workshop
+            columns:
+              - column:
+                  name: created_by
+      rollback:
+        - dropTable:
+            tableName: workshop

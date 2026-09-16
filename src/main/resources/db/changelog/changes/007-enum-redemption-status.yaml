@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-enum-redemption-status
+      author: Abbass Charara
+      changes:
+        - sql:
+            dbms: postgresql
+            splitStatements: true
+            stripComments: true
+            sql: |
+              CREATE TYPE redemption_status AS ENUM ('PENDING', 'FULFILLED', 'CANCELLED');
+      rollback:
+        - sql:
+            sql: DROP TYPE IF EXISTS redemption_status;
