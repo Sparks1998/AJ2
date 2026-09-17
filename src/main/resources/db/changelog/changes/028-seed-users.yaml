@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 028-seed-users
+      author: Abbass Charara
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: email, value: admin@aj2.dev}
+              - column: {name: password_hash, value: "$2a$10$PUv9gfY4cltdHxD3BOz6JOVrPW1q0r0V97YSRT9DeLHN21BL83B7a"}
+              - column: {name: role, value: ADMIN}
+              - column: {name: first_name, value: Admin}
+              - column: {name: last_name, value: AJ2}
+        - insert:
+            tableName: users
+            columns:
+              - column: {name: email, value: client@aj2.dev}
+              - column: {name: password_hash, value: "$2a$10$7B55Q2wfZjYvv.ZoF7C3QOZ1m0DBIEgSEBfMex0oUd.0PT5JCdW0O"}
+              - column: {name: role, value: CLIENT}
+              - column: {name: first_name, value: Test}
+              - column: {name: last_name, value: Client}
+      rollback:
+        - delete:
+            tableName: users
+            where: "email IN ('admin@aj2.dev', 'client@aj2.dev')"

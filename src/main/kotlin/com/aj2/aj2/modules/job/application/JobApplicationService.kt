@@ -5,6 +5,7 @@ import com.aj2.aj2.modules.job.application.dto.CreateJobApplicationRequest
 import com.aj2.aj2.modules.job.application.dto.JobApplicationDto
 import com.aj2.aj2.modules.job.domain.JobApplication
 import com.aj2.aj2.modules.job.domain.JobApplicationRepository
+import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
 import com.aj2.aj2.shared.exceptions.NotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +17,7 @@ class JobApplicationService(
     private val userRepository: UserRepository,
 ) {
     @Transactional
+    @RewardTrigger("JOB_APPLICATION", "CURIOUS")
     fun create(userId: UUID, request: CreateJobApplicationRequest): JobApplicationDto {
         val user = userRepository.findById(userId) ?: throw NotFoundException("User $userId not found")
 
@@ -29,6 +31,7 @@ class JobApplicationService(
                 applicationUrl = request.applicationUrl,
             ),
         )
+
         return saved.toDto()
     }
 

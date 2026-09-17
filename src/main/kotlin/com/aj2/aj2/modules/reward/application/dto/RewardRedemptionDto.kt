@@ -8,7 +8,6 @@ data class RewardRedemptionDto(
     val id: UUID,
     val userId: UUID,
     val rewardId: UUID,
-    val xpSpent: Int,
     val status: RedemptionStatus,
     val redeemedAt: Instant,
 )

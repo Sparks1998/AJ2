@@ -12,6 +12,7 @@ import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.JdbcTypeCode
 import org.hibernate.type.SqlTypes
 import java.time.Instant
+import java.time.LocalDate
 import java.util.UUID
 
 @Entity
@@ -46,6 +47,9 @@ class User(
 
     @Column(name = "phone_number", length = 15)
     var phoneNumber: String? = null,
+
+    @Column(name = "date_of_birth")
+    var dateOfBirth: LocalDate? = null,
 
     @Column(name = "xp_total", nullable = false)
     var xpTotal: Int = 0,

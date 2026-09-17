@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 023-table-auth-tokens
+      id: 020-table-workshops
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: auth_tokens
+            tableName: workshops
             columns:
               - column:
                   name: id
@@ -14,49 +14,42 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: user_id
+                  name: title
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: location
+                  type: VARCHAR
+              - column:
+                  name: starts_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ends_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_by
                   type: UUID
                   constraints:
                     nullable: false
-              - column:
-                  name: issued_at
-                  type: TIMESTAMP WITH TIME ZONE
-                  defaultValueComputed: now()
-                  constraints:
-                    nullable: false
-              - column:
-                  name: expires_at
-                  type: TIMESTAMP WITH TIME ZONE
-                  constraints:
-                    nullable: false
-              - column:
-                  name: revoked_at
-                  type: TIMESTAMP WITH TIME ZONE
-              - column:
-                  name: remember_me
-                  type: BOOLEAN
-                  defaultValueBoolean: false
-                  constraints:
-                    nullable: false
-              - column:
-                  name: request_count
-                  type: INT
-                  defaultValueNumeric: 0
-                  constraints:
-                    nullable: false
         - addForeignKeyConstraint:
-            baseTableName: auth_tokens
-            baseColumnNames: user_id
-            constraintName: fk_auth_tokens_user
+            baseTableName: workshops
+            baseColumnNames: created_by
+            constraintName: fk_workshops_created_by
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_auth_tokens_user_id
-            tableName: auth_tokens
+            indexName: idx_workshops_created_by
+            tableName: workshops
             columns:
               - column:
-                  name: user_id
+                  name: created_by
       rollback:
         - dropTable:
-            tableName: auth_tokens
+            tableName: workshops

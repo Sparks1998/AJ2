@@ -6,7 +6,9 @@ data class RewardDto(
     val id: UUID,
     val title: String,
     val description: String?,
-    val xpCost: Int,
+    val imageUrl: String?,
+    val rewardRuleId: UUID,
+    val ruleThreshold: Int,
     val stock: Int?,
     val active: Boolean,
 )

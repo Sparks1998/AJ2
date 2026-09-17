@@ -42,6 +42,9 @@ databaseChangeLog:
                   name: phone_number
                   type: VARCHAR(15)
               - column:
+                  name: date_of_birth
+                  type: DATE
+              - column:
                   name: xp_total
                   type: INT
                   defaultValueNumeric: 0

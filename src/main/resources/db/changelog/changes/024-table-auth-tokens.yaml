@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 020-table-workshop-registrations
+      id: 024-table-auth-tokens
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: workshop_registrations
+            tableName: auth_tokens
             columns:
               - column:
                   name: id
@@ -14,50 +14,49 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: workshop_id
-                  type: UUID
-                  constraints:
-                    nullable: false
-              - column:
                   name: user_id
                   type: UUID
                   constraints:
                     nullable: false
               - column:
-                  name: registered_at
+                  name: issued_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
               - column:
-                  name: attended_at
+                  name: expires_at
                   type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: revoked_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: remember_me
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: request_count
+                  type: INT
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
         - addForeignKeyConstraint:
-            baseTableName: workshop_registrations
-            baseColumnNames: workshop_id
-            constraintName: fk_workshop_registrations_workshop
-            referencedTableName: workshops
-            referencedColumnNames: id
-            onDelete: CASCADE
-        - addForeignKeyConstraint:
-            baseTableName: workshop_registrations
+            baseTableName: auth_tokens
             baseColumnNames: user_id
-            constraintName: fk_workshop_registrations_user
+            constraintName: fk_auth_tokens_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_workshop_registrations_workshop_id
-            tableName: workshop_registrations
-            columns:
-              - column:
-                  name: workshop_id
-        - createIndex:
-            indexName: idx_workshop_registrations_user_id
-            tableName: workshop_registrations
+            indexName: idx_auth_tokens_user_id
+            tableName: auth_tokens
             columns:
               - column:
                   name: user_id
       rollback:
         - dropTable:
-            tableName: workshop_registrations
+            tableName: auth_tokens

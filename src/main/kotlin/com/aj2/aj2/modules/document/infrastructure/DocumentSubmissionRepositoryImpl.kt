@@ -18,6 +18,12 @@ class DocumentSubmissionRepositoryImpl(
     override fun countByDocumentRequestId(requestId: UUID): Long =
         jpaRepository.countByDocumentRequest_Id(requestId)
 
+    override fun countUploadsByUserIdAndDocumentTypeCode(userId: UUID, documentTypeCode: String): Long =
+        jpaRepository.countBySubmittedBy_IdAndDocumentType_CodeAndDocumentRequestIsNull(userId, documentTypeCode)
+
+    override fun countUpdatesByUserIdAndDocumentTypeCode(userId: UUID, documentTypeCode: String): Long =
+        jpaRepository.countBySubmittedBy_IdAndDocumentType_CodeAndDocumentRequestIsNotNull(userId, documentTypeCode)
+
     override fun search(status: DocumentStatus?, clientId: UUID?): List<DocumentSubmission> = when {
         status != null && clientId != null -> jpaRepository.findByDecisionAndSubmittedBy_Id(status, clientId)
         status != null -> jpaRepository.findByDecision(status)

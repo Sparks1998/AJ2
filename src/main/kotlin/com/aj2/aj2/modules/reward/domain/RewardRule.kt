@@ -1,4 +1,4 @@
-package com.aj2.aj2.modules.document.domain
+package com.aj2.aj2.modules.reward.domain
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -9,8 +9,8 @@ import jakarta.persistence.Table
 import java.util.UUID
 
 @Entity
-@Table(name = "document_types")
-class DocumentType(
+@Table(name = "reward_rules")
+class RewardRule(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
@@ -19,14 +19,9 @@ class DocumentType(
     @Column(name = "code", nullable = false, unique = true)
     var code: String,
 
-    @Column(name = "label", nullable = false)
-    var label: String,
+    @Column(name = "title", nullable = false)
+    var title: String,
 
-    @Column(name = "active", nullable = false)
-    var active: Boolean = true,
-) {
-    companion object {
-        /** Convention: admins must create a document type with this code for CV-based rewards to fire. */
-        const val CV_CODE = "CV"
-    }
-}
+    @Column(name = "description")
+    var description: String? = null,
+)

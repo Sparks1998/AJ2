@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 021-table-device-tokens
+      id: 018-table-reward-redemptions
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: device_tokens
+            tableName: reward_redemptions
             columns:
               - column:
                   name: id
@@ -19,34 +19,51 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: fcm_token
-                  type: VARCHAR
+                  name: reward_id
+                  type: UUID
                   constraints:
                     nullable: false
               - column:
-                  name: platform
-                  type: device_platform
+                  name: status
+                  type: redemption_status
                   constraints:
                     nullable: false
               - column:
-                  name: last_used_at
+                  name: redeemed_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: device_tokens
+            baseTableName: reward_redemptions
             baseColumnNames: user_id
-            constraintName: fk_device_tokens_user
+            constraintName: fk_reward_redemptions_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: reward_redemptions
+            baseColumnNames: reward_id
+            constraintName: fk_reward_redemptions_reward
+            referencedTableName: rewards
+            referencedColumnNames: id
+            onDelete: RESTRICT
         - createIndex:
-            indexName: idx_device_tokens_user_id
-            tableName: device_tokens
+            indexName: idx_reward_redemptions_user_id
+            tableName: reward_redemptions
             columns:
               - column:
                   name: user_id
+        - createIndex:
+            indexName: idx_reward_redemptions_reward_id
+            tableName: reward_redemptions
+            columns:
+              - column:
+                  name: reward_id
+        - addUniqueConstraint:
+            tableName: reward_redemptions
+            columnNames: user_id, reward_id
+            constraintName: uq_reward_redemptions_user_reward
       rollback:
         - dropTable:
-            tableName: device_tokens
+            tableName: reward_redemptions

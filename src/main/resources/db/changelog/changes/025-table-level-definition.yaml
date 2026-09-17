@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 024-table-level-definition
+      id: 025-table-level-definition
       author: Abbass Charara
       changes:
         - createTable:

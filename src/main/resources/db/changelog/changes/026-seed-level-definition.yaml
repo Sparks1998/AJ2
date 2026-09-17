@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 025-seed-level-definition
+      id: 026-seed-level-definition
       author: Abbass Charara
       changes:
         - insert:

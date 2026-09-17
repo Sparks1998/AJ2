@@ -13,5 +13,7 @@ class RewardRepositoryImpl(
 
     override fun findAll(): List<Reward> = jpaRepository.findAll()
 
+    override fun findByRewardRuleId(rewardRuleId: UUID): List<Reward> = jpaRepository.findByRewardRule_Id(rewardRuleId)
+
     override fun save(reward: Reward): Reward = jpaRepository.save(reward)
 }

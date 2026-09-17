@@ -45,32 +45,41 @@ databaseChangeLog:
       file: db/changelog/changes/015-table-document-submissions.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/016-table-rewards.yaml
+      file: db/changelog/changes/016-table-reward-rules.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/017-table-reward-redemptions.yaml
+      file: db/changelog/changes/017-table-rewards.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/018-table-job-applications.yaml
+      file: db/changelog/changes/018-table-reward-redemptions.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/019-table-workshops.yaml
+      file: db/changelog/changes/019-table-job-applications.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/020-table-workshop-registrations.yaml
+      file: db/changelog/changes/020-table-workshops.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/021-table-device-tokens.yaml
+      file: db/changelog/changes/021-table-workshop-registrations.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/022-table-notifications.yaml
+      file: db/changelog/changes/022-table-device-tokens.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/023-table-auth-tokens.yaml
+      file: db/changelog/changes/023-table-notifications.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/024-table-level-definition.yaml
+      file: db/changelog/changes/024-table-auth-tokens.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/025-seed-level-definition.yaml
+      file: db/changelog/changes/025-table-level-definition.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/026-seed-level-definition.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/027-seed-reward-rules-and-rewards.yaml
+      relativeToChangelogFile: false
+  - include:
+      file: db/changelog/changes/028-seed-users.yaml
       relativeToChangelogFile: false

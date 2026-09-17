@@ -16,7 +16,7 @@ description = "AJ2"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
+        languageVersion = JavaLanguageVersion.of(26)
     }
 }
 
@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.springdoc.openapi.starter.webmvc.ui)
     implementation(libs.swagger.annotations)
 
+    // Push notifications
+    implementation(libs.firebase.admin)
+
     // Tests
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -67,9 +70,9 @@ dependencies {
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict" , "-Xannotation-default-target=param-property")
-        jvmTarget = JvmTarget.JVM_25
+        jvmTarget = JvmTarget.JVM_26
     }
-    jvmToolchain(25)
+    jvmToolchain(26)
 }
 
 tasks.withType<KotlinCompile>().configureEach {
@@ -79,7 +82,7 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 tasks.withType<JavaCompile> {
-    targetCompatibility = "25"
+    targetCompatibility = "26"
 }
 
 tasks.withType<Test> {

@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 019-table-workshops
+      id: 023-table-notifications
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: workshops
+            tableName: notifications
             columns:
               - column:
                   name: id
@@ -14,42 +14,48 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
+                  type: VARCHAR
+                  constraints:
+                    nullable: false
+              - column:
                   name: title
                   type: VARCHAR
                   constraints:
                     nullable: false
               - column:
-                  name: description
+                  name: body
                   type: TEXT
               - column:
-                  name: location
-                  type: VARCHAR
+                  name: payload
+                  type: JSONB
               - column:
-                  name: starts_at
-                  type: TIMESTAMP WITH TIME ZONE
-                  constraints:
-                    nullable: false
-              - column:
-                  name: ends_at
+                  name: read_at
                   type: TIMESTAMP WITH TIME ZONE
               - column:
-                  name: created_by
-                  type: UUID
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: workshops
-            baseColumnNames: created_by
-            constraintName: fk_workshops_created_by
+            baseTableName: notifications
+            baseColumnNames: user_id
+            constraintName: fk_notifications_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_workshops_created_by
-            tableName: workshops
+            indexName: idx_notifications_user_id
+            tableName: notifications
             columns:
               - column:
-                  name: created_by
+                  name: user_id
       rollback:
         - dropTable:
-            tableName: workshops
+            tableName: notifications

@@ -4,6 +4,7 @@ import com.aj2.aj2.modules.identity.domain.LevelDefinitionRepository
 import com.aj2.aj2.modules.identity.domain.User
 import com.aj2.aj2.modules.identity.domain.UserRepository
 import com.aj2.aj2.modules.identity.domain.events.LevelUpEvent
+import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
 import com.aj2.aj2.shared.exceptions.BadRequestException
 import com.aj2.aj2.shared.exceptions.NotFoundException
 import org.springframework.context.ApplicationEventPublisher
@@ -67,6 +68,7 @@ class UserXpService(
      * DB reactively, on the next completion after the gap.
      */
     @Transactional
+    @RewardTrigger("STRIKES", "ACTIVE")
     fun updateStreak(userId: UUID) {
         val user = userRepository.findById(userId) ?: throw NotFoundException("User $userId not found")
         val now = Instant.now()

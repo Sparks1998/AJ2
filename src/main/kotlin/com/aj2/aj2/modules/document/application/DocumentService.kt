@@ -12,6 +12,7 @@ import com.aj2.aj2.modules.document.domain.DocumentTypeRepository
 import com.aj2.aj2.modules.document.infrastructure.FileStorage
 import com.aj2.aj2.modules.identity.domain.UserRepository
 import com.aj2.aj2.modules.mission.domain.MissionTemplateRepository
+import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
 import com.aj2.aj2.shared.exceptions.BadRequestException
 import com.aj2.aj2.shared.exceptions.ForbiddenException
 import com.aj2.aj2.shared.exceptions.NotFoundException
@@ -30,6 +31,7 @@ class DocumentService(
     private val fileStorage: FileStorage,
 ) {
     @Transactional
+    @RewardTrigger("CV_UPLOAD")
     fun submitStandalone(userId: UUID, request: SubmitStandaloneRequest): DocumentSubmissionDto {
         val user = userRepository.findById(userId) ?: throw NotFoundException("User $userId not found")
         val documentType = documentTypeRepository.findById(request.documentTypeId)
@@ -58,6 +60,7 @@ class DocumentService(
     }
 
     @Transactional
+    @RewardTrigger("CV_UPDATE")
     fun submitAgainstRequest(userId: UUID, requestId: UUID, file: MultipartFile): DocumentSubmissionDto {
         val documentRequest = documentRequestRepository.findById(requestId)
             ?: throw NotFoundException("Document request $requestId not found")

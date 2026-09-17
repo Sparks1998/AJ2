@@ -1,0 +1,158 @@
+databaseChangeLog:
+  - changeSet:
+      id: 027-seed-reward-rules-and-rewards
+      author: Abbass Charara
+      changes:
+        # JOB_APPLICATION
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: 43dc5715-8690-45d0-bde0-cd2f83236a6f}
+              - column: {name: code, value: JOB_APPLICATION}
+              - column: {name: title, value: Candidatures}
+              - column: {name: description, value: "Récompenses accordées selon le nombre de candidatures envoyées"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Première candidature"}
+              - column: {name: description, value: "Récompense pour l'envoi de votre première candidature"}
+              - column: {name: reward_rule_id, value: 43dc5715-8690-45d0-bde0-cd2f83236a6f}
+              - column: {name: rule_threshold, valueNumeric: 1}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "100 candidatures"}
+              - column: {name: description, value: "Récompense pour avoir atteint 100 candidatures"}
+              - column: {name: reward_rule_id, value: 43dc5715-8690-45d0-bde0-cd2f83236a6f}
+              - column: {name: rule_threshold, valueNumeric: 100}
+
+        # WELCOME
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: e9f37ff6-9098-41a8-962b-8919d9bad9fa}
+              - column: {name: code, value: WELCOME}
+              - column: {name: title, value: Bienvenue}
+              - column: {name: description, value: "Récompense accordée lors de la première connexion"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Première connexion"}
+              - column: {name: description, value: "Récompense pour votre toute première connexion"}
+              - column: {name: reward_rule_id, value: e9f37ff6-9098-41a8-962b-8919d9bad9fa}
+              - column: {name: rule_threshold, valueNumeric: 1}
+
+        # CV_UPLOAD
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: b0a4e170-d2f1-48e9-b089-cfa1d1434713}
+              - column: {name: code, value: CV_UPLOAD}
+              - column: {name: title, value: "Téléversement de CV"}
+              - column: {name: description, value: "Récompense accordée pour le premier téléversement d'un CV"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Premier CV téléversé"}
+              - column: {name: description, value: "Récompense pour avoir téléversé votre CV pour la première fois"}
+              - column: {name: reward_rule_id, value: b0a4e170-d2f1-48e9-b089-cfa1d1434713}
+              - column: {name: rule_threshold, valueNumeric: 1}
+
+        # CV_UPDATE
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: 8f7b556e-5eac-429b-b361-974d49f5076e}
+              - column: {name: code, value: CV_UPDATE}
+              - column: {name: title, value: "Mise à jour du CV"}
+              - column: {name: description, value: "Récompense accordée pour la première mise à jour d'un CV"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Premier CV mis à jour"}
+              - column: {name: description, value: "Récompense pour avoir mis à jour votre CV pour la première fois"}
+              - column: {name: reward_rule_id, value: 8f7b556e-5eac-429b-b361-974d49f5076e}
+              - column: {name: rule_threshold, valueNumeric: 1}
+
+        # STRIKES
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: 716834fc-a5b4-4202-bc35-d2121420e8d1}
+              - column: {name: code, value: STRIKES}
+              - column: {name: title, value: "Séries"}
+              - column: {name: description, value: "Récompenses accordées selon la série d'activité en cours de l'utilisateur"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Série de 7 jours"}
+              - column: {name: description, value: "Récompense pour une série d'activité de 7 jours"}
+              - column: {name: reward_rule_id, value: 716834fc-a5b4-4202-bc35-d2121420e8d1}
+              - column: {name: rule_threshold, valueNumeric: 7}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Série d'un mois"}
+              - column: {name: description, value: "Récompense pour une série d'activité d'un mois"}
+              - column: {name: reward_rule_id, value: 716834fc-a5b4-4202-bc35-d2121420e8d1}
+              - column: {name: rule_threshold, valueNumeric: 30}
+
+        # ACTIVE
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: 5dc959ca-4f16-4b89-9482-c6f468272e67}
+              - column: {name: code, value: ACTIVE}
+              - column: {name: title, value: Actif}
+              - column: {name: description, value: "Récompense accordée lorsque l'utilisateur maintient une série d'activité de 2 mois consécutifs"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Toujours actif"}
+              - column: {name: description, value: "Récompense pour une série d'activité de 2 mois consécutifs"}
+              - column: {name: reward_rule_id, value: 5dc959ca-4f16-4b89-9482-c6f468272e67}
+              - column: {name: rule_threshold, valueNumeric: 60}
+
+        # CURIOUS
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: 9c25116a-5a31-4649-b992-572b5640376e}
+              - column: {name: code, value: CURIOUS}
+              - column: {name: title, value: Curieux}
+              - column: {name: description, value: "Récompense accordée lorsque l'utilisateur postule à 200 offres d'emploi"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: Curieux}
+              - column: {name: description, value: "Récompense pour avoir postulé à 200 offres d'emploi"}
+              - column: {name: reward_rule_id, value: 9c25116a-5a31-4649-b992-572b5640376e}
+              - column: {name: rule_threshold, valueNumeric: 200}
+
+        # INTERVIEW
+        - insert:
+            tableName: reward_rules
+            columns:
+              - column: {name: id, value: c5179f89-5e89-4d55-9f83-b00f219d3eca}
+              - column: {name: code, value: INTERVIEW}
+              - column: {name: title, value: Entretiens}
+              - column: {name: description, value: "Récompenses accordées selon le nombre d'entretiens obtenus"}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "Premier entretien"}
+              - column: {name: description, value: "Récompense pour avoir obtenu votre premier entretien"}
+              - column: {name: reward_rule_id, value: c5179f89-5e89-4d55-9f83-b00f219d3eca}
+              - column: {name: rule_threshold, valueNumeric: 1}
+        - insert:
+            tableName: rewards
+            columns:
+              - column: {name: title, value: "10 entretiens"}
+              - column: {name: description, value: "Récompense pour avoir obtenu 10 entretiens"}
+              - column: {name: reward_rule_id, value: c5179f89-5e89-4d55-9f83-b00f219d3eca}
+              - column: {name: rule_threshold, valueNumeric: 10}
+      rollback:
+        - delete:
+            tableName: rewards
+        - delete:
+            tableName: reward_rules

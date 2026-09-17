@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 018-table-job-applications
+      id: 022-table-device-tokens
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: job_applications
+            tableName: device_tokens
             columns:
               - column:
                   name: id
@@ -19,47 +19,34 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: source
+                  name: fcm_token
                   type: VARCHAR
                   constraints:
                     nullable: false
               - column:
-                  name: source_ref
-                  type: VARCHAR
+                  name: platform
+                  type: device_platform
                   constraints:
                     nullable: false
               - column:
-                  name: title
-                  type: VARCHAR
-                  constraints:
-                    nullable: false
-              - column:
-                  name: company
-                  type: VARCHAR
-              - column:
-                  name: application_url
-                  type: VARCHAR
-                  constraints:
-                    nullable: false
-              - column:
-                  name: opened_at
+                  name: last_used_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: job_applications
+            baseTableName: device_tokens
             baseColumnNames: user_id
-            constraintName: fk_job_applications_user
+            constraintName: fk_device_tokens_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_job_applications_user_id
-            tableName: job_applications
+            indexName: idx_device_tokens_user_id
+            tableName: device_tokens
             columns:
               - column:
                   name: user_id
       rollback:
         - dropTable:
-            tableName: job_applications
+            tableName: device_tokens

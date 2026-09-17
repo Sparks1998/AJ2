@@ -5,8 +5,12 @@ import com.aj2.aj2.modules.identity.application.dto.LoginResult
 import com.aj2.aj2.modules.identity.domain.AuthToken
 import com.aj2.aj2.modules.identity.domain.AuthTokenRepository
 import com.aj2.aj2.modules.identity.domain.UserRepository
+import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
 import com.aj2.aj2.shared.exceptions.BadRequestException
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.authority.SimpleGrantedAuthority
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -22,6 +26,7 @@ class AuthService(
     @Value($$"${security.jwt.expiration-seconds}") private val expirationSeconds: Long,
 ) {
     @Transactional
+    @RewardTrigger("WELCOME")
     fun login(request: LoginRequest): LoginResult {
         val user = userRepository.findByEmail(request.email)
             ?: throw BadRequestException("Invalid email or password")
@@ -29,6 +34,14 @@ class AuthService(
         if (!passwordEncoder.matches(request.password, user.passwordHash)) {
             throw BadRequestException("Invalid email or password")
         }
+
+        // No JWT exists yet for this request, so AuthTokenFilter never runs - set the
+        // context here so @RewardTrigger's CurrentUserResolver lookup resolves below.
+        SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken(
+            user.id.toString(),
+            null,
+            listOf(SimpleGrantedAuthority("ROLE_${user.role}")),
+        )
 
         val now = Instant.now()
         val expiresAt = now.plusSeconds(expirationSeconds)

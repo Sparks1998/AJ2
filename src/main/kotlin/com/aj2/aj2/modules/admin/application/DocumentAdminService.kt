@@ -49,8 +49,9 @@ class DocumentAdminService(
         notificationService.notify(
             userId = clientUserId,
             type = "DOCUMENT_REQUESTED",
-            title = "New document requested",
+            title = "Nouveau document demandé",
             body = documentType.label,
+            titleLocKey = "notification.document_requested.title",
         )
 
         return documentRequest.toDto()

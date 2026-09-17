@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface JobApplicationJpaRepository : JpaRepository<JobApplication, UUID> {
-    fun findByUser_Id(userId: UUID): List<JobApplication>
+    fun findByUserId(userId: UUID): List<JobApplication>
+    fun countByUserId(userId: UUID): Long
 }

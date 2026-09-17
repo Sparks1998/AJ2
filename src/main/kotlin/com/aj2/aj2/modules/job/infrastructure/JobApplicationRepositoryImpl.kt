@@ -9,7 +9,9 @@ import java.util.UUID
 class JobApplicationRepositoryImpl(
     private val jpaRepository: JobApplicationJpaRepository,
 ) : JobApplicationRepository {
-    override fun findByUserId(userId: UUID): List<JobApplication> = jpaRepository.findByUser_Id(userId)
+    override fun findByUserId(userId: UUID): List<JobApplication> = jpaRepository.findByUserId(userId)
+
+    override fun countByUserId(userId: UUID): Long = jpaRepository.countByUserId(userId)
 
     override fun save(jobApplication: JobApplication): JobApplication = jpaRepository.save(jobApplication)
 }

@@ -4,4 +4,6 @@ import com.aj2.aj2.modules.reward.domain.Reward
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
-interface RewardJpaRepository : JpaRepository<Reward, UUID>
+interface RewardJpaRepository : JpaRepository<Reward, UUID> {
+    fun findByRewardRule_Id(rewardRuleId: UUID): List<Reward>
+}

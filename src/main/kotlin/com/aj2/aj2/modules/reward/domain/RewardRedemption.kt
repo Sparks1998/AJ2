@@ -33,9 +33,6 @@ class RewardRedemption(
     @JoinColumn(name = "reward_id", nullable = false)
     var reward: Reward,
 
-    @Column(name = "xp_spent", nullable = false)
-    var xpSpent: Int,
-
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name = "status", nullable = false, columnDefinition = "redemption_status")

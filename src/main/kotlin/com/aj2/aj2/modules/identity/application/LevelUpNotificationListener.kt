@@ -19,8 +19,11 @@ class LevelUpNotificationListener(
         notificationService.notify(
             userId = event.userId,
             type = "LEVEL_UP",
-            title = "Level up!",
-            body = "You reached level ${event.newLevel}: ${event.newLevelTitle}",
+            title = "Niveau supérieur !",
+            body = "Vous avez atteint le niveau ${event.newLevel} : ${event.newLevelTitle}",
+            titleLocKey = "notification.level_up.title",
+            bodyLocKey = "notification.level_up.body",
+            bodyLocArgs = listOf(event.newLevel.toString(), event.newLevelTitle),
         )
     }
 }

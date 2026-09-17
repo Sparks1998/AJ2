@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: 021-table-workshop-registrations
+      author: Abbass Charara
+      changes:
+        - createTable:
+            tableName: workshop_registrations
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: workshop_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registered_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: attended_at
+                  type: TIMESTAMP WITH TIME ZONE
+        - addForeignKeyConstraint:
+            baseTableName: workshop_registrations
+            baseColumnNames: workshop_id
+            constraintName: fk_workshop_registrations_workshop
+            referencedTableName: workshops
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: workshop_registrations
+            baseColumnNames: user_id
+            constraintName: fk_workshop_registrations_user
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: RESTRICT
+        - createIndex:
+            indexName: idx_workshop_registrations_workshop_id
+            tableName: workshop_registrations
+            columns:
+              - column:
+                  name: workshop_id
+        - createIndex:
+            indexName: idx_workshop_registrations_user_id
+            tableName: workshop_registrations
+            columns:
+              - column:
+                  name: user_id
+      rollback:
+        - dropTable:
+            tableName: workshop_registrations
