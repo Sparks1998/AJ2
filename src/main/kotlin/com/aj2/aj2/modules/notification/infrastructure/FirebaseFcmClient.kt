@@ -101,7 +101,7 @@ class FirebaseFcmClient(
             .build()
 
         val message = MulticastMessage.builder()
-            .addAllTokens(tokens)
+            .addAllFids(tokens)
             .setAndroidConfig(AndroidConfig.builder().setNotification(androidNotification).build())
             .setApnsConfig(ApnsConfig.builder().setAps(Aps.builder().setAlert(apsAlert).build()).build())
             .build()
