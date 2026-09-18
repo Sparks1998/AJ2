@@ -1,5 +1,6 @@
 package com.aj2.aj2.modules.notification.domain
 
+import com.aj2.aj2.modules.identity.domain.AuthToken
 import com.aj2.aj2.modules.identity.domain.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -31,6 +32,14 @@ class DeviceToken(
 
     @Column(name = "fcm_token", nullable = false)
     var fcmToken: String,
+
+    // The one currently-active session for this device. Logging in again on
+    // the same device (same fcmToken) revokes whatever AuthToken this pointed
+    // to and swaps it for the new one - a device never has more than one
+    // active auth token.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "auth_token_id", nullable = false)
+    var authToken: AuthToken,
 
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)

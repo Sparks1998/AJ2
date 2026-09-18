@@ -6,6 +6,8 @@ import com.aj2.aj2.modules.workshop.application.dto.CreateWorkshopRequest
 import com.aj2.aj2.modules.workshop.application.dto.UpdateWorkshopRequest
 import com.aj2.aj2.modules.workshop.application.dto.WorkshopDto
 import com.aj2.aj2.modules.workshop.application.dto.WorkshopRegistrationDto
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PatchMapping
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
+@Tag(name = "Admin - Workshops", description = "Admin management of workshops and attendance")
 @RestController
 @RequestMapping("/workshops")
 @PreAuthorize("hasRole('ADMIN')")
@@ -23,16 +26,19 @@ class WorkshopAdminController(
     private val workshopAdminService: WorkshopAdminService,
     private val currentUserResolver: CurrentUserResolver,
 ) {
+    @Operation(summary = "Create a new workshop")
     @PostMapping
     fun create(@Valid @RequestBody request: CreateWorkshopRequest): WorkshopDto {
         val currentUser = currentUserResolver.current()
         return workshopAdminService.create(currentUser.userId, request)
     }
 
+    @Operation(summary = "Update an existing workshop")
     @PatchMapping("/{id}")
     fun update(@PathVariable id: UUID, @RequestBody request: UpdateWorkshopRequest): WorkshopDto =
         workshopAdminService.update(id, request)
 
+    @Operation(summary = "Mark a registered attendee as having attended a workshop")
     @PostMapping("/{id}/attendees/{userId}/mark-attended")
     fun markAttended(@PathVariable id: UUID, @PathVariable userId: UUID): WorkshopRegistrationDto =
         workshopAdminService.markAttended(id, userId)

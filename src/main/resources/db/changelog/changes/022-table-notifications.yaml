@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 022-table-device-tokens
+      id: 022-table-notifications
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: device_tokens
+            tableName: notifications
             columns:
               - column:
                   name: id
@@ -19,34 +19,43 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: fcm_token
+                  name: type
                   type: VARCHAR
                   constraints:
                     nullable: false
               - column:
-                  name: platform
-                  type: device_platform
+                  name: title
+                  type: VARCHAR
                   constraints:
                     nullable: false
               - column:
-                  name: last_used_at
+                  name: body
+                  type: TEXT
+              - column:
+                  name: payload
+                  type: JSONB
+              - column:
+                  name: read_at
+                  type: TIMESTAMP WITH TIME ZONE
+              - column:
+                  name: created_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: device_tokens
+            baseTableName: notifications
             baseColumnNames: user_id
-            constraintName: fk_device_tokens_user
+            constraintName: fk_notifications_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
         - createIndex:
-            indexName: idx_device_tokens_user_id
-            tableName: device_tokens
+            indexName: idx_notifications_user_id
+            tableName: notifications
             columns:
               - column:
                   name: user_id
       rollback:
         - dropTable:
-            tableName: device_tokens
+            tableName: notifications

@@ -8,7 +8,7 @@ databaseChangeLog:
             splitStatements: true
             stripComments: true
             sql: |
-              CREATE TYPE device_platform AS ENUM ('ANDROID', 'IOS');
+              CREATE TYPE device_platform AS ENUM ('ANDROID', 'IOS', 'WEB');
       rollback:
         - sql:
             sql: DROP TYPE IF EXISTS device_platform;

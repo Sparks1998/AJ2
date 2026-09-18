@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 024-table-auth-tokens
+      id: 023-table-auth-tokens
       author: Abbass Charara
       changes:
         - createTable:

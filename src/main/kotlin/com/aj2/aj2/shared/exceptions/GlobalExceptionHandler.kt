@@ -39,6 +39,13 @@ class GlobalExceptionHandler {
             .body(ApiResponse(message = exception.message))
     }
 
+    @ExceptionHandler(UnauthorizedException::class)
+    fun handleUnauthorized(exception: UnauthorizedException): ResponseEntity<ApiResponse> {
+        log.warn("Unauthorized: {}", exception.message)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+            .body(ApiResponse(message = exception.message))
+    }
+
     @ExceptionHandler(BadRequestException::class, ConstraintViolationException::class, IllegalArgumentException::class)
     fun handleBadRequest(exception: Exception): ResponseEntity<ApiResponse> {
         log.warn("Bad request: {}", exception.message)

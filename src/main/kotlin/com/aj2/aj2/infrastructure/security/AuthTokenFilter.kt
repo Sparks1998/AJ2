@@ -15,6 +15,14 @@ import org.springframework.web.filter.OncePerRequestFilter
 import java.time.Instant
 import java.util.UUID
 
+/**
+ * Runs right after Spring Security's OAuth2 Resource Server has already
+ * verified the JWT signature and exp claim. This does the part that can
+ * only be known from our own DB: cross-checks the token against auth_tokens
+ * (revocation), re-resolves the caller's current role fresh from users, and
+ * rotates the token after N requests. @PreAuthorize (method security) is
+ * layered on top of this for role checks - it never does token validation.
+ */
 @Component
 class AuthTokenFilter(
     private val authTokenRepository: AuthTokenRepository,

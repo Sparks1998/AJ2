@@ -5,8 +5,9 @@ import com.aj2.aj2.modules.identity.application.dto.LoginResult
 import com.aj2.aj2.modules.identity.domain.AuthToken
 import com.aj2.aj2.modules.identity.domain.AuthTokenRepository
 import com.aj2.aj2.modules.identity.domain.UserRepository
+import com.aj2.aj2.modules.notification.application.DeviceService
 import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
-import com.aj2.aj2.shared.exceptions.BadRequestException
+import com.aj2.aj2.shared.exceptions.UnauthorizedException
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -23,16 +24,17 @@ class AuthService(
     private val authTokenRepository: AuthTokenRepository,
     private val passwordEncoder: PasswordEncoder,
     private val jwtIssuer: JwtIssuer,
+    private val deviceService: DeviceService,
     @Value($$"${security.jwt.expiration-seconds}") private val expirationSeconds: Long,
 ) {
     @Transactional
     @RewardTrigger("WELCOME")
     fun login(request: LoginRequest): LoginResult {
         val user = userRepository.findByEmail(request.email)
-            ?: throw BadRequestException("Invalid email or password")
+            ?: throw UnauthorizedException("Invalid email or password")
 
         if (!passwordEncoder.matches(request.password, user.passwordHash)) {
-            throw BadRequestException("Invalid email or password")
+            throw UnauthorizedException("Invalid email or password")
         }
 
         // No JWT exists yet for this request, so AuthTokenFilter never runs - set the
@@ -52,11 +54,11 @@ class AuthService(
 
         val accessToken = jwtIssuer.issue(authToken.id!!, now, expiresAt)
 
+        deviceService.register(user.id!!, request.fcmToken, request.platform, authToken.id!!)
+
         return LoginResult(
             accessToken = accessToken,
-            expiresAt = expiresAt,
-            userId = user.id!!,
-            role = user.role,
+            user = user,
         )
     }
 

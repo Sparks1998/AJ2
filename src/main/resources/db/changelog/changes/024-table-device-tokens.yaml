@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 023-table-notifications
+      id: 024-table-device-tokens
       author: Abbass Charara
       changes:
         - createTable:
-            tableName: notifications
+            tableName: device_tokens
             columns:
               - column:
                   name: id
@@ -19,43 +19,47 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: type
+                  name: fcm_token
                   type: VARCHAR
                   constraints:
                     nullable: false
+                    unique: true
               - column:
-                  name: title
-                  type: VARCHAR
+                  name: auth_token_id
+                  type: UUID
                   constraints:
                     nullable: false
               - column:
-                  name: body
-                  type: TEXT
+                  name: platform
+                  type: device_platform
+                  constraints:
+                    nullable: false
               - column:
-                  name: payload
-                  type: JSONB
-              - column:
-                  name: read_at
-                  type: TIMESTAMP WITH TIME ZONE
-              - column:
-                  name: created_at
+                  name: last_used_at
                   type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseTableName: notifications
+            baseTableName: device_tokens
             baseColumnNames: user_id
-            constraintName: fk_notifications_user
+            constraintName: fk_device_tokens_user
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
+        - addForeignKeyConstraint:
+            baseTableName: device_tokens
+            baseColumnNames: auth_token_id
+            constraintName: fk_device_tokens_auth_token
+            referencedTableName: auth_tokens
+            referencedColumnNames: id
+            onDelete: RESTRICT
         - createIndex:
-            indexName: idx_notifications_user_id
-            tableName: notifications
+            indexName: idx_device_tokens_user_id
+            tableName: device_tokens
             columns:
               - column:
                   name: user_id
       rollback:
         - dropTable:
-            tableName: notifications
+            tableName: device_tokens

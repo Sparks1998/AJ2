@@ -63,13 +63,13 @@ databaseChangeLog:
       file: db/changelog/changes/021-table-workshop-registrations.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/022-table-device-tokens.yaml
+      file: db/changelog/changes/022-table-notifications.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/023-table-notifications.yaml
+      file: db/changelog/changes/023-table-auth-tokens.yaml
       relativeToChangelogFile: false
   - include:
-      file: db/changelog/changes/024-table-auth-tokens.yaml
+      file: db/changelog/changes/024-table-device-tokens.yaml
       relativeToChangelogFile: false
   - include:
       file: db/changelog/changes/025-table-level-definition.yaml

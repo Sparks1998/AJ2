@@ -8,5 +8,5 @@ data class RegisterDeviceRequest(
     @field:NotBlank
     val fcmToken: String,
     @field:NotNull
-    val platform: DevicePlatform,
+    var platform: DevicePlatform,
 )
