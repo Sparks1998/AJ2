@@ -12,5 +12,10 @@ class PrefixConfiguration : WebMvcConfigurer {
         ) { handler: Class<*>? ->
             handler!!.`package`.name.startsWith("com.aj2.aj2.modules.admin.api")
         }
+        configurer.addPathPrefix(
+            "/jobs",
+        ) { handler: Class<*>? ->
+            handler!!.`package`.name.startsWith("com.aj2.aj2.modules.job.api")
+        }
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "Job Applications", description = "Client job application tracking")
 @RestController
-@RequestMapping("/jobs/applications")
+@RequestMapping("/applications")
 class JobApplicationController(
     private val jobApplicationService: JobApplicationService,
     private val currentUserResolver: CurrentUserResolver,

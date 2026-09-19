@@ -1,10 +1,12 @@
 package com.aj2.aj2.modules.job.application.dto
 
+import com.aj2.aj2.modules.job.domain.JobSource
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 
 data class CreateJobApplicationRequest(
-    @field:NotBlank
-    val source: String,
+    @field:NotNull
+    var source: JobSource,
     @field:NotBlank
     val sourceRef: String,
     @field:NotBlank

@@ -6,6 +6,7 @@ import com.aj2.aj2.modules.job.application.dto.JobApplicationDto
 import com.aj2.aj2.modules.job.domain.JobApplication
 import com.aj2.aj2.modules.job.domain.JobApplicationRepository
 import com.aj2.aj2.modules.reward.infrastructure.aop.RewardTrigger
+import com.aj2.aj2.shared.exceptions.BadRequestException
 import com.aj2.aj2.shared.exceptions.NotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -20,6 +21,10 @@ class JobApplicationService(
     @RewardTrigger("JOB_APPLICATION", "CURIOUS")
     fun create(userId: UUID, request: CreateJobApplicationRequest): JobApplicationDto {
         val user = userRepository.findById(userId) ?: throw NotFoundException("User $userId not found")
+
+        if (jobApplicationRepository.existsByUserIdAndSourceAndSourceRef(userId, request.source, request.sourceRef)) {
+            throw BadRequestException("You have already applied to this job")
+        }
 
         val saved = jobApplicationRepository.save(
             JobApplication(

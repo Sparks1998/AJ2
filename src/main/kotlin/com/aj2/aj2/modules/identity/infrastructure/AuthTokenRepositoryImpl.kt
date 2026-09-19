@@ -14,4 +14,6 @@ class AuthTokenRepositoryImpl(
     override fun countByUserId(userId: UUID): Long = jpaRepository.countByUser_Id(userId)
 
     override fun save(authToken: AuthToken): AuthToken = jpaRepository.save(authToken)
+
+    override fun deleteById(id: UUID) = jpaRepository.deleteById(id)
 }

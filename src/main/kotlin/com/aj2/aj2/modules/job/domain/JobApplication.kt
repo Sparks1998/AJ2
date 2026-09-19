@@ -3,6 +3,8 @@ package com.aj2.aj2.modules.job.domain
 import com.aj2.aj2.modules.identity.domain.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -25,8 +27,9 @@ class JobApplication(
     @JoinColumn(name = "user_id", nullable = false)
     var user: User,
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "source", nullable = false)
-    var source: String,
+    var source: JobSource,
 
     @Column(name = "source_ref", nullable = false)
     var sourceRef: String,

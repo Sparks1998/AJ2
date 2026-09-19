@@ -54,12 +54,10 @@ databaseChangeLog:
             referencedTableName: users
             referencedColumnNames: id
             onDelete: RESTRICT
-        - createIndex:
-            indexName: idx_job_applications_user_id
+        - addUniqueConstraint:
             tableName: job_applications
-            columns:
-              - column:
-                  name: user_id
+            columnNames: user_id, source, source_ref
+            constraintName: uq_job_applications_user_source_source_ref
       rollback:
         - dropTable:
             tableName: job_applications

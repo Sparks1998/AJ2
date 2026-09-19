@@ -60,11 +60,20 @@ dependencies {
     // Push notifications
     implementation(libs.firebase.admin)
 
+    // HTTP clients
+    implementation(libs.spring.cloud.starter.openfeign)
+
     // Tests
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly(libs.junit.platform.launcher)
     testImplementation(kotlin("test"))
+}
+
+dependencyManagement {
+    imports {
+        mavenBom(libs.spring.cloud.dependencies.get().toString())
+    }
 }
 
 kotlin {

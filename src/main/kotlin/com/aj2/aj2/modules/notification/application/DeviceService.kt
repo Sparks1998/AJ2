@@ -8,7 +8,6 @@ import com.aj2.aj2.modules.notification.domain.DeviceTokenRepository
 import com.aj2.aj2.shared.exceptions.NotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.Instant
 import java.util.UUID
 
 @Service
@@ -32,25 +31,17 @@ class DeviceService(
      * breaks under Hibernate's flush ordering (inserts always flush before
      * deletes within one flush, regardless of call order), which re-violates
      * the fcm_token unique constraint.
-     *
-     * A device also never has more than one active auth token: whatever
-     * AuthToken this fcmToken previously pointed to gets revoked here before
-     * the device row is repointed at the new one.
      */
     @Transactional
     fun register(userId: UUID, fcmToken: String, platform: DevicePlatform, authTokenId: UUID) {
         if (userRepository.findById(userId) == null) throw NotFoundException("User $userId not found")
 
         val previousAuthTokenId = deviceTokenRepository.findAuthTokenIdByFcmToken(fcmToken)
-        if (previousAuthTokenId != null && previousAuthTokenId != authTokenId) {
-            authTokenRepository.findById(previousAuthTokenId)?.let { previousAuthToken ->
-                if (previousAuthToken.revokedAt == null) {
-                    previousAuthToken.revokedAt = Instant.now()
-                    authTokenRepository.save(previousAuthToken)
-                }
-            }
-        }
 
         deviceTokenRepository.upsertByFcmToken(userId, fcmToken, platform, authTokenId)
+
+        if (previousAuthTokenId != null && previousAuthTokenId != authTokenId) {
+            authTokenRepository.deleteById(previousAuthTokenId)
+        }
     }
 }

@@ -42,3 +42,4 @@ out/
 ### Secrets ###
 *.p12
 firebase-service-account.json
+france-travail-credentials.yaml
